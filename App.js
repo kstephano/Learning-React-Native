@@ -2,43 +2,48 @@
  * Contact list app
  *
  * @format
- * @flow strict-local
+ * @flow strict local
  */
 
  import React from 'react'
  import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
  import { Constants } from 'expo'
  
- import contacts from './contacts'
+ import contacts from './Contacts'
+
+ const Row = props => (
+    <View key={props.key}>
+        <Text>{props.name}</Text>
+        <Text>{props.phone}</Text>
+    </View> 
+ )
+
+ const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      backgroundColor: '#fff',
+  },
+})
  
  export default class App extends React.Component {
      state = {
-         showContacts: false,
+        showContacts: false,
      }
  
      toggleContacts = () => {
-         this.setStates(prevState => ({showContacts: !prevState.showContacts}))
+        this.setState(prevState => ({showContacts: !prevState.showContacts}))
      }
      
      render() {
          return (
-             <View style={this.styles.container}>
-                 <Button title="toggle contacts" onPress={this.toggleContacts} />
-                 <ScrollView>
-                     {contacts.map(contact => (
-                         <View key={contact.key}>
-                             <Text>{contact.name}</Text>
-                             <Text>{contact.phone}</Text>
-                         </View>
-                     ))}
-                 </ScrollView>
+             <View style={styles.container}>
+                <Button title="toggle contacts" onPress={this.toggleContacts} />
+                <ScrollView>
+                    {contacts.map(contact => <Row {...contact} />)}
+                </ScrollView>
              </View>
          ) 
     }
 
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-        },
-    })
+    
  }
