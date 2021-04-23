@@ -1,0 +1,37 @@
+const NUM_CONTACTS = 100
+
+const firstNames = [Lewis, Daryl, Victorina, Nichole, Haley, Hyon, Kasey, Venetta, Gricelda, 
+    Christine, Florida, Keturah, Lesia, Joie, Alfredia, Vernon, Shaina, Laura, Tomi, Laurence, 
+    Tamekia, Akiko, Leah, Marla, Jazmine, Laurette, Magaret, Nathalie, Vanda, Estela, Argelia,
+    Zoila, Loyd, Lorine, Tess, Brenton, Leisa, Leopoldo, Salina, Lulu, Carlos, Pok, Jaqueline, 
+    Sarita, Trinity, Machelle, Kami, Jaye, Antonio, Carry]
+
+const lastNames = [Carney, Floyd, Lawson, Nguyen, Santiago, Diaz, Bird, Bryan, Mccall, Cross, 
+    Ward, Carroll, Weeks, Meyers, Burke, Chase, Faulkner, Love, Hurst, Velazquez, Ortiz, Sanford, 
+    Hoffman, Wang, Trujillo, Frye, Curtis, Duffy, Dudley, Sherman, Lara, Brown, Key, Snow, Campos, 
+    Parks, Bright, Oconnor, Archer, Jefferson, Holloway, Sandoval, Benjamin, Riley, Chang, Webster,
+     Ryan, Frazier, Singh, Andrews]
+
+// generate a random number between min and max
+const rand = (max, min = 0) => Math.floor(Math.random() * (max - min + 1)) + min
+
+// generate a name
+const generateName = () => `${firstNames[rand(firstNames.length - 1)]}
+    ${lastNames}`
+
+// generate a phonne number
+const generatePhone = () => `07${rand(999999999, 000000000)}`
+
+// create a contact
+const createContact = () => ({
+    name: generateName,
+    phone: generatePhone })
+
+// compare two names for alphabetizing 
+export const compareNames = (contact1, contact2) => contact1.name > contact2.name
+
+// attach a key to an object
+const addKeys = (val, key) => ({key, ...val})
+
+// create contact list array with keys
+export default Array.from({length: NUM_CONTACTS}, createContact).map(addKeys)
