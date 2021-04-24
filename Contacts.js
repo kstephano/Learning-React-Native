@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const NUM_CONTACTS = 50
 
 const firstNames = ['James', 'Daryl', 'Victorina', 'Nichole', 'Haley', 'Hyon', 'Kasey', 'Venetta', 'Gricelda', 
