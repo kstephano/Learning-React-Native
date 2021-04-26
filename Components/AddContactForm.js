@@ -55,7 +55,8 @@ export default class AddContactForm extends React.Component {
     }
 
     validateForm = () => {
-        if (+this.state.phone >= 0 && this.state.phone.length === 11 && this.state.name.length >= 3) {
+        const names = this.state.name.split(' ') 
+        if (+this.state.phone >= 0 && this.state.phone.length === 11 && this.state.name.length >= 3 && names.length >= 2 && names[0] && names[1]) {
             return this.setState({isFormValid: true})
         } else {
             return this.setState({isFormValid: false})
@@ -63,9 +64,7 @@ export default class AddContactForm extends React.Component {
     }
 
     handleSubmit = () => {
-        if (+this.state.phone >= 0 && this.state.phone.length === 11 && this.state.name.length >= 3) {
-            this.props.onSubmit(...this.state)
-        }
+        this.props.onSubmit(...this.state)
     }
 
     render() {
