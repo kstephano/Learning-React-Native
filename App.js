@@ -9,31 +9,30 @@ import React from 'react'
 import { Button, SectionList, StyleSheet, Text, View } from 'react-native'
 import { Constants } from 'expo'
 import PropTypes from 'prop-types'
+import { createSwitchNavigator } from 'react-navigation'
  
 import contacts, {compareNames} from './Contacts'
-import ContactsList from './Components/ContactsList'
-import AddContactForm from './Components/AddContactForm'
+import AddContactScreen from './Screens/AddContactScreen'
+import ContactListScreen from './Screens/ContactListScreen'
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
+const AppNavigator = createSwitchNavigator({
+    AddContact: AddContactScreen,
+    ContactList: ContactListScreen,
+}, {
+    initialRouteName: 'ContactList' 
 })
  
 export default class App extends React.Component {
     state = {
         showContacts: false,
-        showForm: false,
         contacts: contacts,
     }
 
     addContact = newContact => {
-        this.setState(prevState => ({showForm: false, contact: [...prevState.contact, newContact]}))
-    }
- 
-    toggleContacts = () => {
-        this.setState(prevState => ({showContacts: !prevState.showContacts}))
+        this.setState(prevState => ({
+            showForm: false,
+             contact: [...prevState.contact, newContact],
+        }))
     }
 
     toggleForm = () => {
@@ -41,14 +40,13 @@ export default class App extends React.Component {
     }
 
     render() {
-        if (this.state.showForm) return <AddContactForm onSubmit={this.addContact}/>
-
-        return (
-            <View style={styles.container}>
-            <Button title="toggle contacts" onPress={this.toggleContacts} />
-            <Button title="Add Contact" onPress={this.toggleForm} />
-            {this.state.showContacts && <ContactsList contacts={this.state.contacts.sort(compareNames)} />}
-            </View>
-        )
+        <AppNavigator screenProps={contacts} />
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+})
