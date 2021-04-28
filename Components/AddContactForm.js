@@ -2,34 +2,9 @@ import React from 'react'
 import {Button, TextInput, View, KeyboardAvoidingView, StyleSheet} from 'react-native'
 import PropTypes from 'prop-types'
 
-/*
-AddContactForm.PropTypes = {
-    addContact: this.PropTypes.func,
-} */
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-    },
-    input: {
-        borderColor: 'black',
-        borderWidth: 1,
-        minWidth: 100,
-        marginTop: 20,
-        marginHorizontal: 20,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderRadius: 3,
-    },
-    button: {
-        marginTop: 20,
-        minWidth: 100,
-        color: '#fff',
-        paddingHorizontal: 150,
-    }
-})
+// AddContactForm.PropTypes = {
+//     addContact: this.PropTypes.func,
+// }
 
 export default class AddContactForm extends React.Component {
     state = {
@@ -45,26 +20,26 @@ export default class AddContactForm extends React.Component {
     }
 
     handleNameChange = name => {
-        this.setState({name})
+        this.setState({ name })
     }
 
     handlePhoneChange = phone => {
         if (+phone >= 0 && phone.length <= 11) {
-            this.setState({phone})
+            this.setState({ phone })
         }
     }
 
     validateForm = () => {
         const names = this.state.name.split(' ') 
         if (+this.state.phone >= 0 && this.state.phone.length === 11 && this.state.name.length >= 3 && names.length >= 2 && names[0] && names[1]) {
-            return this.setState({isFormValid: true})
+            return this.setState({ isFormValid: true })
         } else {
-            return this.setState({isFormValid: false})
+            return this.setState({ isFormValid: false })
         }
     }
 
     handleSubmit = () => {
-        this.props.onSubmit(...this.state)
+        this.props.onSubmit({ ...this.state })
     }
 
     render() {
@@ -97,3 +72,27 @@ export default class AddContactForm extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+    },
+    input: {
+        borderColor: 'black',
+        borderWidth: 1,
+        minWidth: 100,
+        marginTop: 20,
+        marginHorizontal: 20,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 3,
+    },
+    button: {
+        marginTop: 20,
+        minWidth: 100,
+        color: '#fff',
+        paddingHorizontal: 150,
+    }
+})

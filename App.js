@@ -9,38 +9,31 @@ import React from 'react'
 import { Button, SectionList, StyleSheet, Text, View } from 'react-native'
 import { Constants } from 'expo'
 import PropTypes from 'prop-types'
-import { createSwitchNavigator } from 'react-navigation'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
  
-import contacts, {compareNames} from './Contacts'
 import AddContactScreen from './Screens/AddContactScreen'
 import ContactListScreen from './Screens/ContactListScreen'
 
-const AppNavigator = createSwitchNavigator({
-    AddContact: AddContactScreen,
-    ContactList: ContactListScreen,
-}, {
-    initialRouteName: 'ContactList' 
-})
+const Stack = createStackNavigator()
  
 export default class App extends React.Component {
-    state = {
-        showContacts: false,
-        contacts: contacts,
-    }
-
-    addContact = newContact => {
-        this.setState(prevState => ({
-            showForm: false,
-             contact: [...prevState.contact, newContact],
-        }))
-    }
-
-    toggleForm = () => {
-        this.setState(prevState => ({showForm: !prevState.showForm}))
-    }
 
     render() {
-        <AppNavigator screenProps={contacts} />
+        return (
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="ContactList">
+                    <Stack.Screen 
+                        name="ContactList" 
+                        component={ContactListScreen} 
+                        options={ {title: 'Contacts'} } />
+                    <Stack.Screen 
+                        name="AddContact" 
+                        component={AddContactScreen} 
+                        options={ {title: 'Add Contact'} } />
+                </Stack.Navigator>
+            </NavigationContainer>
+        )
     }
 }
 
