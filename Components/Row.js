@@ -11,6 +11,8 @@ const Row = props => (
 const styles = StyleSheet.create({
     row: {
         padding: 10,
+        borderRadius: 5,
+        borderColor: '#000000',
     },
     name: {
         textTransform: 'capitalize',

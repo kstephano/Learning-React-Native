@@ -1,5 +1,5 @@
 import React from 'react'
-import {SectionList, Text} from 'react-native'
+import { SectionList, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Row from './Row'
@@ -10,7 +10,7 @@ import Row from './Row'
 
 const renderItem = obj => <Row {...obj.item} />
 
-const renderSectionHeader = obj => <Text>{obj.section.title}</Text>
+const renderSectionHeader = obj => <Text style={styles.sectionHeader}>{obj.section.title}</Text>
 
 // create contacts list sorted by letter, whereby each object is a letter
 // e.g. 'A' paired with the array of contacts belonging to that letter.
@@ -39,5 +39,17 @@ const ContactsList = props => {
         />
     )
 }
+
+const styles = StyleSheet.create({
+    sectionHeader : {
+        paddingTop: 5,
+        paddingBottom: 5,
+        paddingLeft: 10,
+        backgroundColor: '#c9c9c9',
+        fontWeight:'bold' ,
+        fontStyle: 'italic',
+        textAlign: 'left',
+    },
+})
 
 export default ContactsList
