@@ -14,13 +14,17 @@ export default class ContactListScreen extends React.Component {
     static navigationOptions = {
         headerTitle: 'Contacts',
     }
-
+ 
     componentDidUpdate(prevProps) {
-        if (this.props.params?.newContact !== prevProps.params?.newContact) {
+        if (this.props.route.params?.newContact !== prevProps.route.params?.newContact) {
             if (this.props.route.params?.newContact) { 
-                this.addContact(this.props.route.params?.newContact)
+                this.addContact( {
+                    key: this.state.contacts.length,
+                    name: this.props.route.params.newContact.name.toLowerCase(),
+                    phone: this.props.route.params.newContact.phone,
+                })
             }
-    }
+        }
     }
 
     addContact = newContact => {
@@ -37,7 +41,7 @@ export default class ContactListScreen extends React.Component {
         return (
             <View style={styles.container}>
             <Button title="Add Contact" onPress={this.showForm} />
-            <ContactsList contacts={contacts.sort(compareNames)} />
+            <ContactsList contacts={this.state.contacts.sort(compareNames)} />
             </View>
         )
     }
