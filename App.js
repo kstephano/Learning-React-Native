@@ -14,6 +14,7 @@ import { createStackNavigator } from '@react-navigation/stack';
  
 import AddContactScreen from './Screens/AddContactScreen'
 import ContactListScreen from './Screens/ContactListScreen'
+import ContactDetailsScreen from './Screens/ContactDetailsScreen'
 
 const Stack = createStackNavigator()
  
@@ -26,11 +27,24 @@ export default class App extends React.Component {
                     <Stack.Screen 
                         name="ContactList" 
                         component={ContactListScreen} 
-                        options={ {title: 'Contacts'} } />
+                        options={{
+                            headerTitle: 'Contacts',
+                        }} 
+                    />
                     <Stack.Screen 
                         name="AddContact" 
                         component={AddContactScreen} 
-                        options={ {title: 'Add Contact'} } />
+                        options={{
+                            title: 'Add Contact'
+                        }} 
+                    />
+                    <Stack.Screen
+                        name="ContactDetails"
+                        component={ContactDetailsScreen}
+                        options={{
+                            title: 'Details'
+                        }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         )

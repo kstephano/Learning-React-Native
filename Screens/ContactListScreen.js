@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, View, StyleSheet } from 'react-native'
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native'
 import { Constants } from 'expo'
 
 import contacts, {compareNames} from '../Contacts'
@@ -11,8 +11,19 @@ export default class ContactListScreen extends React.Component {
         contacts: contacts,
     }
 
-    static navigationOptions = {
-        headerTitle: 'Contacts',
+    componentDidMount() {
+        this.props.navigation.setOptions({
+            headerRight: () => (
+                //<View >
+                    <TouchableOpacity  
+                        style={styles.addContactButton}
+                        onPress={() => {this.props.navigation.navigate('AddContact')}} 
+                    >
+                        <Text style={styles.buttonText}>Add</Text>
+                    </TouchableOpacity>
+                //</View>
+            )
+        })
     }
  
     componentDidUpdate(prevProps) {
@@ -33,15 +44,15 @@ export default class ContactListScreen extends React.Component {
         }))
     }
 
-    showForm = () => {
-        this.props.navigation.navigate('AddContact')
-    }
-
     render() {
         return (
             <View style={styles.container}>
-            <Button title="Add Contact" onPress={this.showForm} />
-            <ContactsList contacts={this.state.contacts.sort(compareNames)} />
+            <ContactsList 
+                contacts={this.state.contacts.sort(compareNames)}
+                onSelectContact={contact => {
+                    this.props.navigation.navigate('ContactDetails')
+                }} 
+            />
             </View>
         )
     }
@@ -52,4 +63,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
+    addContactButton: {
+        paddingRight: 15,
+    },
+    buttonText: {
+        fontSize: 20,
+        color: '#30a5ff',
+    }
 })

@@ -1,20 +1,27 @@
 import React from 'react'
-import { SectionList, Text, StyleSheet } from 'react-native'
+import { SectionList, Text, StyleSheet, } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Row from './Row'
+import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers'
 
 // ContactsList.propTypes = {
 //     contacts: PropTypes.array,
 // }
-
-const renderItem = obj => <Row {...obj.item} />
 
 const renderSectionHeader = obj => <Text style={styles.sectionHeader}>{obj.section.title}</Text>
 
 // create contacts list sorted by letter, whereby each object is a letter
 // e.g. 'A' paired with the array of contacts belonging to that letter.
 const ContactsList = props => {
+
+    const renderItem = obj => <Row 
+        {...obj.item} 
+        onSelectContact={contact => {
+            props.onSelectContact(contact)
+        }}
+    />
+
     const contactsByLetter = props.contacts.reduce((obj, contact) => {
         const firstLetter = contact.name[0].toUpperCase()
         return {
