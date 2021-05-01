@@ -15,40 +15,65 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AddContactScreen from './Screens/AddContactScreen'
 import ContactListScreen from './Screens/ContactListScreen'
 import ContactDetailsScreen from './Screens/ContactDetailsScreen'
+import LoginScreen from './Screens/LoginScreen';
 
-const Stack = createStackNavigator()
+const Main = createStackNavigator()
+const Contacts = createStackNavigator()
+
+const StackContacts = () => (
+    <Contacts.Navigator initialRouteName="ContactList">
+        <Contacts.Screen 
+            name="ContactList" 
+            component={ContactListScreen} 
+            options={{
+                headerTitle: 'Contacts',
+                headerTitleAlign: 'center',
+            }} 
+        />
+        <Contacts.Screen 
+            name="AddContact" 
+            component={AddContactScreen} 
+            options={{
+                title: 'Add Contact',
+                headerTitleAlign: 'center',
+            }} 
+        />
+        <Contacts.Screen
+            name="ContactDetails"
+            component={ContactDetailsScreen}
+            options={({ route }) => ({ 
+                title: route.params.name,
+                headerTitleAlign: 'center'
+            })}
+        />
+    </Contacts.Navigator>
+)
  
 export default class App extends React.Component {
+    state = {
+        isLoggedIn: false
+    }
 
     render() {
         return (
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="ContactList">
-                    <Stack.Screen 
-                        name="ContactList" 
-                        component={ContactListScreen} 
-                        options={{
-                            headerTitle: 'Contacts',
-                            headerTitleAlign: 'center',
-                        }} 
+                <Main.Navigator initialRouteName='Login' >
+                    {this.state.isLoggedIn == false ? (
+                        <Main.Screen
+                            name="Login"
+                            component={LoginScreen}
+                            options={{
+                                headerTitle: 'Login',
+                                headerTitleAlign: 'center',
+                            }}
                     />
-                    <Stack.Screen 
-                        name="AddContact" 
-                        component={AddContactScreen} 
-                        options={{
-                            title: 'Add Contact',
-                            headerTitleAlign: 'center',
-                        }} 
-                    />
-                    <Stack.Screen
-                        name="ContactDetails"
-                        component={ContactDetailsScreen}
-                        options={({ route }) => ({ 
-                            title: route.params.name,
-                            headerTitleAlign: 'center'
-                        })}
-                    />
-                </Stack.Navigator>
+                    ) : (
+                        <Main.Screen
+                            name='Contacts'
+                            component={StackContacts}
+                        />
+                    )}
+                </Main.Navigator>
             </NavigationContainer>
         )
     }
