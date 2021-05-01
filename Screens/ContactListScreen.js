@@ -50,7 +50,11 @@ export default class ContactListScreen extends React.Component {
             <ContactsList 
                 contacts={this.state.contacts.sort(compareNames)}
                 onSelectContact={contact => {
-                    this.props.navigation.navigate('ContactDetails')
+                    this.props.navigation.navigate('ContactDetails', {
+                        contacts: this.state.contacts,
+                        name: contact.name,
+                        phone: contact.phone,
+                    })
                 }} 
             />
             </View>

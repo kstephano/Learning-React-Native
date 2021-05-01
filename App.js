@@ -29,21 +29,24 @@ export default class App extends React.Component {
                         component={ContactListScreen} 
                         options={{
                             headerTitle: 'Contacts',
+                            headerTitleAlign: 'center',
                         }} 
                     />
                     <Stack.Screen 
                         name="AddContact" 
                         component={AddContactScreen} 
                         options={{
-                            title: 'Add Contact'
+                            title: 'Add Contact',
+                            headerTitleAlign: 'center',
                         }} 
                     />
                     <Stack.Screen
                         name="ContactDetails"
                         component={ContactDetailsScreen}
-                        options={{
-                            title: 'Details'
-                        }}
+                        options={({ route }) => ({ 
+                            title: route.params.name,
+                            headerTitleAlign: 'center'
+                        })}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
