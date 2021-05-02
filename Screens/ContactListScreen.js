@@ -6,6 +6,8 @@ import contacts, {compareNames} from '../Contacts'
 import ContactsList from '../Components/ContactsList'
 import { TabRouter } from 'react-navigation'
 
+import { fetchUsers } from "../api";
+
 export default class ContactListScreen extends React.Component {
     state = {
         contacts: contacts,
@@ -14,16 +16,20 @@ export default class ContactListScreen extends React.Component {
     componentDidMount() {
         this.props.navigation.setOptions({
             headerRight: () => (
-                //<View >
-                    <TouchableOpacity  
-                        style={styles.addContactButton}
-                        onPress={() => {this.props.navigation.navigate('AddContact')}} 
-                    >
-                        <Text style={styles.buttonText}>Add</Text>
-                    </TouchableOpacity>
-                //</View>
+                <TouchableOpacity  
+                    style={styles.addContactButton}
+                    onPress={() => {this.props.navigation.navigate('AddContact')}} 
+                >
+                    <Text style={styles.buttonText}>Add</Text>
+                </TouchableOpacity>
             )
         })
+        this.getUsers()
+    }
+
+    getUsers = async () => {
+        const results = await fetchUsers()
+        this.setState({contacts: results})
     }
  
     componentDidUpdate(prevProps) {
