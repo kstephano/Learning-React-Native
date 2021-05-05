@@ -43,7 +43,8 @@ const StackContacts = () => (
             component={ContactDetailsScreen}
             options={({ route }) => ({ 
                 title: route.params.name,
-                headerTitleAlign: 'center'
+                headerTitleAlign: 'center',
+                headerTitleStyle: styles.contactDetailsTitle,
             })}
         />
     </Contacts.Navigator>
@@ -83,5 +84,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+    },
+    contactDetailsTitle: {
+        textTransform: 'capitalize',
     },
 })

@@ -4,13 +4,13 @@ import { Constants } from 'expo'
 
 import contacts, {compareNames} from '../Contacts'
 import ContactsList from '../Components/ContactsList'
-import { TabRouter } from 'react-navigation'
-
+import store from '../Redux/store'
+import { addContact } from '../Redux/actions'
 import { fetchUsers } from "../api";
 
 export default class ContactListScreen extends React.Component {
     state = {
-        contacts: contacts,
+        contacts: store.getState().contacts,
     }
 
     componentDidMount() {
@@ -24,7 +24,7 @@ export default class ContactListScreen extends React.Component {
                 </TouchableOpacity>
             )
         })
-        this.getUsers()
+        //this.getUsers()
     }
 
     getUsers = async () => {
@@ -45,9 +45,10 @@ export default class ContactListScreen extends React.Component {
     }
 
     addContact = newContact => {
-        this.setState(prevState => ({
-            contacts: [...prevState.contacts, newContact],
-        }))
+        // this.setState(prevState => ({
+        //     contacts: [...prevState.contacts, newContact],
+        // }))
+        store.dispatch(addContact(newContact))
     }
 
     render() {

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
     name: {
         textTransform: 'capitalize',
-    }
+    },
 })
 
 export default Row
