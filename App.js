@@ -17,6 +17,7 @@ import AddContactScreen from './Screens/AddContactScreen'
 import ContactListScreen from './Screens/ContactListScreen'
 import ContactDetailsScreen from './Screens/ContactDetailsScreen'
 import LoginScreen from './Screens/LoginScreen';
+
 import store from './Redux/store';
 
 const Main = createStackNavigator()
@@ -28,8 +29,8 @@ const StackContacts = () => (
             name="ContactList" 
             component={ContactListScreen} 
             options={{
-                headerTitle: 'Contacts',
-                headerTitleAlign: 'center',
+                headerTitle: 'All Contacts',
+                headerTitleAlign: 'left',
             }} 
         />
         <Contacts.Screen 
@@ -75,6 +76,9 @@ export default class App extends React.Component {
                             <Main.Screen
                                 name='Contacts'
                                 component={StackContacts}
+                                options={{
+                                    headerTitleAlign: 'center',
+                                }}
                             />
                         )}
                     </Main.Navigator>

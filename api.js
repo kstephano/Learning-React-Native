@@ -2,7 +2,7 @@ import uuid from 'react-native-uuid'
 
 const processContact = (contact, index) => ({
     key: uuid.v4(),
-    name: `${contact.name.first} ${contact.name.last}`,
+    name: `${contact.name.first.toLowerCase()} ${contact.name.last.toLowerCase()}`,
     phone: contact.phone,
 })
 

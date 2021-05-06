@@ -42,7 +42,7 @@ export default class ContactDetailsScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-
+        justifyContent: 'center',
     },
     button: {
         paddingLeft: 50,

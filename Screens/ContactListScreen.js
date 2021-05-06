@@ -11,10 +11,14 @@ import {fetchUsers} from "../api";
 import store from '../Redux/store'
 
 class ContactListScreen extends React.Component {
-    state = {
-        contacts: this.props.contacts
+    constructor(props) {
+        super(props)
+        this.state = {
+            contacts: this.props.contacts
+        }
+        this.getUsers()
     }
-
+ 
     componentDidMount() {
         this.props.navigation.setOptions({
             headerRight: () => (
@@ -26,16 +30,8 @@ class ContactListScreen extends React.Component {
                 </TouchableOpacity>
             )
         })
-        this.getUsers()
     }
 
-    getUsers = async () => {
-        const results = await fetchUsers()
-        results.map(contact => {
-            store.dispatch(addContact(contact))
-        })
-    }
- 
     componentDidUpdate(prevProps) {
         if (this.props.route.params?.newContact !== prevProps.route.params?.newContact) {
             if (this.props.route.params?.newContact) { 
@@ -48,18 +44,26 @@ class ContactListScreen extends React.Component {
         }
     }
 
+    getUsers = async () => {
+        const results = await fetchUsers()
+        results.map(contact => {
+            store.dispatch(addContact(contact))
+        })
+    }
+
     addContact = newContact => {
         store.dispatch(addContact(newContact))
     }
 
     render() {
+        debugger
         return (
             <View style={styles.container}>
                 <ContactsList 
                     contacts={this.props.contacts.sort(compareNames)}
                     onSelectContact={contact => {
                         this.props.navigation.navigate('ContactDetails', {
-                            contacts: this.state.contacts,
+                            contacts: this.props.contacts,
                             name: contact.name,
                             phone: contact.phone,
                         })
