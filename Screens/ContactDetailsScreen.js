@@ -22,8 +22,11 @@ export default class ContactDetailsScreen extends React.Component {
         })
     }
 
-    render() {
+    componentDidMount() {
         this.props.navigation.setOptions({ title: this.props.route.params.name})
+    }
+
+    render() {
 
         return (
             <View style={styles.container}>

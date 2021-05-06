@@ -48,6 +48,7 @@ export default class ContactListScreen extends React.Component {
         // this.setState(prevState => ({
         //     contacts: [...prevState.contacts, newContact],
         // }))
+        debugger
         store.dispatch(addContact(newContact))
     }
 
