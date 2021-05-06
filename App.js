@@ -11,11 +11,13 @@ import { Constants } from 'expo'
 import PropTypes from 'prop-types'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {Provider} from 'react-redux'
  
 import AddContactScreen from './Screens/AddContactScreen'
 import ContactListScreen from './Screens/ContactListScreen'
 import ContactDetailsScreen from './Screens/ContactDetailsScreen'
 import LoginScreen from './Screens/LoginScreen';
+import store from './Redux/store';
 
 const Main = createStackNavigator()
 const Contacts = createStackNavigator()
@@ -57,25 +59,27 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <NavigationContainer>
-                <Main.Navigator initialRouteName='Login' >
-                    {this.state.isLoggedIn == false ? (
-                        <Main.Screen
-                            name="Login"
-                            component={LoginScreen}
-                            options={{
-                                headerTitle: 'Login',
-                                headerTitleAlign: 'center',
-                            }}
-                    />
-                    ) : (
-                        <Main.Screen
-                            name='Contacts'
-                            component={StackContacts}
+            <Provider store={store}>
+                <NavigationContainer>
+                    <Main.Navigator initialRouteName='Login' >
+                        {this.state.isLoggedIn == false ? (
+                            <Main.Screen
+                                name="Login"
+                                component={LoginScreen}
+                                options={{
+                                    headerTitle: 'Login',
+                                    headerTitleAlign: 'center',
+                                }}
                         />
-                    )}
-                </Main.Navigator>
-            </NavigationContainer>
+                        ) : (
+                            <Main.Screen
+                                name='Contacts'
+                                component={StackContacts}
+                            />
+                        )}
+                    </Main.Navigator>
+                </NavigationContainer>
+            </Provider>
         )
     }
 }

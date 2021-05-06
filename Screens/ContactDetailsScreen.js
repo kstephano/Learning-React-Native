@@ -27,7 +27,6 @@ export default class ContactDetailsScreen extends React.Component {
     }
 
     render() {
-
         return (
             <View style={styles.container}>
                 <Text>{this.props.route.params.phone}</Text>

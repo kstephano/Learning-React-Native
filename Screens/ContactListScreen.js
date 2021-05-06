@@ -1,16 +1,18 @@
 import React from 'react'
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native'
 import { Constants } from 'expo'
+import uuid from 'react-native-uuid'
+import {connect} from 'react-redux'
 
-import contacts, {compareNames} from '../Contacts'
+import {compareNames} from '../Contacts'
 import ContactsList from '../Components/ContactsList'
+import {addContact} from '../Redux/actions'
+import {fetchUsers} from "../api";
 import store from '../Redux/store'
-import { addContact } from '../Redux/actions'
-import { fetchUsers } from "../api";
 
-export default class ContactListScreen extends React.Component {
+class ContactListScreen extends React.Component {
     state = {
-        contacts: store.getState().contacts,
+        contacts: this.props.contacts
     }
 
     componentDidMount() {
@@ -24,19 +26,21 @@ export default class ContactListScreen extends React.Component {
                 </TouchableOpacity>
             )
         })
-        //this.getUsers()
+        this.getUsers()
     }
 
     getUsers = async () => {
         const results = await fetchUsers()
-        this.setState({contacts: results})
+        results.map(contact => {
+            store.dispatch(addContact(contact))
+        })
     }
  
     componentDidUpdate(prevProps) {
         if (this.props.route.params?.newContact !== prevProps.route.params?.newContact) {
             if (this.props.route.params?.newContact) { 
                 this.addContact( {
-                    key: this.state.contacts.length,
+                    key: uuid.v4(),
                     name: this.props.route.params.newContact.name.toLowerCase(),
                     phone: this.props.route.params.newContact.phone,
                 })
@@ -45,26 +49,22 @@ export default class ContactListScreen extends React.Component {
     }
 
     addContact = newContact => {
-        // this.setState(prevState => ({
-        //     contacts: [...prevState.contacts, newContact],
-        // }))
-        debugger
         store.dispatch(addContact(newContact))
     }
 
     render() {
         return (
             <View style={styles.container}>
-            <ContactsList 
-                contacts={this.state.contacts.sort(compareNames)}
-                onSelectContact={contact => {
-                    this.props.navigation.navigate('ContactDetails', {
-                        contacts: this.state.contacts,
-                        name: contact.name,
-                        phone: contact.phone,
-                    })
-                }} 
-            />
+                <ContactsList 
+                    contacts={this.props.contacts.sort(compareNames)}
+                    onSelectContact={contact => {
+                        this.props.navigation.navigate('ContactDetails', {
+                            contacts: this.state.contacts,
+                            name: contact.name,
+                            phone: contact.phone,
+                        })
+                    }} 
+                />
             </View>
         )
     }
@@ -83,3 +83,9 @@ const styles = StyleSheet.create({
         color: '#30a5ff',
     }
 })
+
+const mapStateToProps = state => ({
+    contacts: state.contacts,
+})
+
+export default connect(mapStateToProps)(ContactListScreen)
