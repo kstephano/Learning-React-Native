@@ -29,7 +29,7 @@ export default class ContactDetailsScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>{this.props.route.params.phone}</Text>
+                <Text style={styles.phone}>{this.props.route.params.phone}</Text>
                 <View style={styles.button}>
                     <Button 
                     title="Go to Random Contact" 
@@ -48,5 +48,10 @@ const styles = StyleSheet.create({
         paddingLeft: 50,
         paddingRight: 50,
         paddingTop: 10,
-    }
+    },
+    phone: {
+        textAlign: 'center',
+        padding: 15,
+        fontSize: 20,
+    },
 })
