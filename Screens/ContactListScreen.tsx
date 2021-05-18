@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { Props } from 'react'
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native'
-import { Constants } from 'expo'
 import uuid from 'react-native-uuid'
 import {connect} from 'react-redux'
 
 import {compareNames} from '../Contacts'
 import ContactsList from '../Components/ContactsList'
 import {addContact} from '../Redux/actions'
-import {fetchUsers} from "../api";
+import {fetchUsers} from "../api"
 import store from '../Redux/store'
+import {ContactsArray, ContactListScreenProps, ContactWithKey, ContactListScreenState} from '../types'
 
-class ContactListScreen extends React.Component {
-    constructor(props) {
+class ContactListScreen extends React.Component<ContactListScreenProps, {contacts: ContactsArray}> {
+    constructor(props: ContactListScreenProps) {
         super(props)
         this.state = {
             contacts: this.props.contacts
@@ -32,7 +32,7 @@ class ContactListScreen extends React.Component {
         })
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: ContactListScreenProps) {
         if (this.props.route.params?.newContact !== prevProps.route.params?.newContact) {
             if (this.props.route.params?.newContact) { 
                 this.addContact( {
@@ -46,12 +46,12 @@ class ContactListScreen extends React.Component {
 
     getUsers = async () => {
         const results = await fetchUsers()
-        results.map(contact => {
+        results.map((contact: ContactWithKey) => {
             store.dispatch(addContact(contact))
         })
     }
 
-    addContact = newContact => {
+    addContact = (newContact: ContactWithKey) => {
         store.dispatch(addContact(newContact))
     }
 
@@ -61,7 +61,7 @@ class ContactListScreen extends React.Component {
             <View style={styles.container}>
                 <ContactsList 
                     contacts={this.props.contacts.sort(compareNames)}
-                    onSelectContact={contact => {
+                    onSelectContact={(contact: ContactWithKey) => {
                         this.props.navigation.navigate('ContactDetails', {
                             contacts: this.props.contacts,
                             name: contact.name,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: ContactListScreenState) => ({
     contacts: state.contacts,
 })
 

@@ -5,9 +5,8 @@
  * @flow strict local
  */
 
-import React from 'react'
+import React, { Props } from 'react'
 import { Button, SectionList, StyleSheet, Text, View } from 'react-native'
-import { Constants } from 'expo'
 import PropTypes from 'prop-types'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,11 +16,15 @@ import AddContactScreen from './Screens/AddContactScreen'
 import ContactListScreen from './Screens/ContactListScreen'
 import ContactDetailsScreen from './Screens/ContactDetailsScreen'
 import LoginScreen from './Screens/LoginScreen';
-
+import {  MainStackParamList, ContactStackParamList} from './types'
 import store from './Redux/store';
 
-const Main = createStackNavigator()
-const Contacts = createStackNavigator()
+interface State {
+    isLoggedIn: boolean
+}
+
+const Main = createStackNavigator<MainStackParamList>()
+const Contacts = createStackNavigator<ContactStackParamList>()
 
 const StackContacts = () => (
     <Contacts.Navigator initialRouteName="ContactList">
@@ -53,7 +56,7 @@ const StackContacts = () => (
     </Contacts.Navigator>
 )
  
-export default class App extends React.Component {
+export default class App extends React.Component<State> {
     state = {
         isLoggedIn: true
     }

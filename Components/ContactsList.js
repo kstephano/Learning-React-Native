@@ -1,13 +1,8 @@
 import React from 'react'
 import { SectionList, Text, StyleSheet, } from 'react-native'
-import PropTypes from 'prop-types'
 
 import Row from './Row'
-import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers'
 
-// ContactsList.propTypes = {
-//     contacts: PropTypes.array,
-// }
 
 const renderSectionHeader = obj => <Text style={styles.sectionHeader}>{obj.section.title}</Text>
 
