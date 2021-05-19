@@ -1,15 +1,17 @@
 import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 
-export default class ContactDetailsScreen extends React.Component {
+import { ContactDetailsScreenProps, ContactsArray, ContactWithKey } from '../types'
+
+export default class ContactDetailsScreen extends React.Component<ContactDetailsScreenProps> {
 
     goToRandom = () => {
-        const contacts = this.props.route.params.contacts
-        const phone = this.props.route.params.phone
-        let randomContact
-        
+        const contacts: ContactsArray = this.props.route.params.contacts
+        const phone: string = this.props.route.params.phone
+        let randomContact: ContactWithKey | undefined
+
         while (!randomContact) {
-            const randomIndex = Math.floor(Math.random() * contacts.length)
+            const randomIndex: number = Math.floor(Math.random() * contacts.length)
             if (contacts[randomIndex].phone !== phone) {
                 randomContact = contacts[randomIndex]
             }

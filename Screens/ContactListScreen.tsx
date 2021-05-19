@@ -10,7 +10,7 @@ import {fetchUsers} from "../api"
 import store from '../Redux/store'
 import {ContactsArray, ContactListScreenProps, ContactWithKey, ContactListScreenState} from '../types'
 
-class ContactListScreen extends React.Component<ContactListScreenProps, {contacts: ContactsArray}> {
+class ContactListScreen extends React.Component<ContactListScreenProps, ContactListScreenState> {
     constructor(props: ContactListScreenProps) {
         super(props)
         this.state = {
