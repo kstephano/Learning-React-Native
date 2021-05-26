@@ -1,7 +1,9 @@
-import { Route, RouteProp } from "@react-navigation/native"
+import { SectionListData } from 'react-native'
+import {  RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 
 // 1. Root folder tsx files types
+
 // App.tsx types
 export type ContactStackParamList = {
     ContactList: {
@@ -10,7 +12,7 @@ export type ContactStackParamList = {
             phone: string,
         }
     }
-    AddContact: undefined
+    AddContact: undefined,
     ContactDetails: {
         name: string,
         phone: string,
@@ -26,7 +28,19 @@ export type MainStackParamList = {
 // Contacts.tsx types
 export type ContactsArray = Array<ContactWithKey>
 
+// api.tsx types
+
+export interface RetrievedContact {
+    name: {
+        title: string,
+        first: string,
+        last: string,
+    },
+    phone: string
+}
+
 // 2. Screens folder tsx files types
+
 // ContactsListScreen.tsx types
 export type ContactListScreenProps = {
     contacts: ContactsArray,
@@ -39,7 +53,7 @@ type ContactListScreenRouteProp = RouteProp<ContactStackParamList, 'ContactList'
 type ContactListScreenNavigationProp = StackNavigationProp<ContactStackParamList, 'ContactList'>
 
 export type ContactWithKey = {
-    key: string | number[],
+    uid: string | number[],
     name: string,
     phone: string,
 }
@@ -70,8 +84,57 @@ type AddContactScreenRouteProp = RouteProp<ContactStackParamList, 'AddContact'>
 type AddContactScreenNavigationProp = StackNavigationProp<ContactStackParamList, 'AddContact'>
 
 // 3. Components folder tsx file types 
+
+// AddContactFormProps.tsx types
 export type AddContactFormProps = {
+    onSubmit: (formState: AddContactFormState) => void
+}
+
+export type AddContactFormState = {
     name: string,
     phone: string,
     isFormValid: boolean,
 }
+
+// ContactsList.tsx types
+export type ContactsListProps = {
+    contacts: ContactsArray,
+    onSelectContact: (contact: ContactWithKey) => void
+}
+
+export interface ArraysByLetter {
+    [letter: string]: Array<ContactWithKey>
+}
+
+export interface IHeader {
+    section: SectionListData<ContactWithKey, Section>
+}
+
+export interface Section {
+    title: string,
+    data: ContactWithKey[]
+}
+
+// Row.tsx types
+export interface RowProps {
+    name: string,
+    phone: string,
+    uid: string | number[],
+    onSelectContact: (contact: ContactWithKey) => void
+}
+
+// 4. Redux folder tsx file types
+
+// actions.tsx types
+export interface ContactUpdate {
+    name: string,
+    phone: string,
+}
+
+// reducer.tsx types
+export interface Action {
+    type: string,
+    payload: Payload
+}
+
+export type Payload = ContactWithKey | ContactUpdate | {}

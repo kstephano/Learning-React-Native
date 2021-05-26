@@ -1,14 +1,14 @@
 import React, { Props } from 'react'
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native'
 import uuid from 'react-native-uuid'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-import {compareNames} from '../Contacts'
+import { compareNames } from '../Contacts'
 import ContactsList from '../Components/ContactsList'
-import {addContact} from '../Redux/actions'
-import {fetchUsers} from "../api"
+import { addContact } from '../Redux/actions'
+import { fetchUsers } from "../api"
 import store from '../Redux/store'
-import {ContactsArray, ContactListScreenProps, ContactWithKey, ContactListScreenState} from '../types'
+import { ContactListScreenProps, ContactWithKey, ContactListScreenState } from '../types'
 
 class ContactListScreen extends React.Component<ContactListScreenProps, ContactListScreenState> {
     constructor(props: ContactListScreenProps) {
@@ -36,7 +36,7 @@ class ContactListScreen extends React.Component<ContactListScreenProps, ContactL
         if (this.props.route.params?.newContact !== prevProps.route.params?.newContact) {
             if (this.props.route.params?.newContact) { 
                 this.addContact( {
-                    key: uuid.v4(),
+                    uid: uuid.v4(),
                     name: this.props.route.params.newContact.name.toLowerCase(),
                     phone: this.props.route.params.newContact.phone,
                 })

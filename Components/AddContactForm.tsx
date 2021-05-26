@@ -1,29 +1,25 @@
 import React from 'react'
 import {Button, TextInput, View, KeyboardAvoidingView, StyleSheet} from 'react-native'
-import PropTypes from 'prop-types'
+import { AddContactFormProps, AddContactFormState } from '../types'
 
-// AddContactForm.PropTypes = {
-//     addContact: this.PropTypes.func,
-// }
-
-export default class AddContactForm extends React.Component {
+export default class AddContactForm extends React.Component<AddContactFormProps, AddContactFormState> {
     state = {
         name: '',
         phone: '',
         isFormValid: false,
     }
 
-    componentDidUpdate (prevProps, prevState) {
+    componentDidUpdate (prevProps: AddContactFormProps, prevState: AddContactFormState) {
         if (this.state.name !== prevState.name || this.state.phone !== prevState.phone) {
             this.validateForm()
         }
     }
 
-    handleNameChange = name => {
+    handleNameChange = (name: string) => {
         this.setState({ name })
     }
 
-    handlePhoneChange = phone => {
+    handlePhoneChange = (phone: string) => {
         if (+phone >= 0 && phone.length <= 11) {
             this.setState({ phone })
         }

@@ -1,14 +1,14 @@
 import React from 'react'
 
 import AddContactForm from '../Components/AddContactForm'
-import { AddContactFormProps, AddContactScreenProps } from '../types'
+import { AddContactFormState, AddContactScreenProps } from '../types'
 
 export default class AddContactScreen extends React.Component<AddContactScreenProps> {
     static navigationOptions = {
         headerTitle: 'Add Contact',
     }
 
-    handleSubmit = (formState: AddContactFormProps) => {
+    handleSubmit = (formState: AddContactFormState) => {
         this.props.navigation.navigate('ContactList', { newContact: formState })
     }
 

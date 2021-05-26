@@ -1,7 +1,9 @@
 import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-const Row = props => (
+import { RowProps } from '../types'
+
+const Row = (props: RowProps) => (
     <TouchableOpacity 
         style={styles.row} 
         onPress={() => props.onSelectContact(props)}

@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux'
 
 import { UPDATE_USER, UPDATE_CONTACT } from './actions'
- 
-const merge = (prev, next) => Object.assign({}, prev, next)
+import { Action, Payload } from '../types'
 
-const contactReducer = (state = [], action) => {
+const merge = (prev: Payload, next: Payload) => Object.assign({}, prev, next)
+
+const contactReducer = (state = [], action: Action) => {
     if (action.type === UPDATE_CONTACT) return [...state, action.payload]
     return state
 }
 
-const userReducer = (state = {}, action) => {
+const userReducer = (state = {}, action: Action) => {
     switch (action.type) {
         case UPDATE_USER :
             return merge(state, action.payload)
