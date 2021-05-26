@@ -1,6 +1,7 @@
 import { SectionListData } from 'react-native'
 import {  RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
+import { Key } from 'react'
 
 // 1. Root folder tsx files types
 
@@ -53,7 +54,7 @@ type ContactListScreenRouteProp = RouteProp<ContactStackParamList, 'ContactList'
 type ContactListScreenNavigationProp = StackNavigationProp<ContactStackParamList, 'ContactList'>
 
 export type ContactWithKey = {
-    uid: string | number[],
+    key: string | number[] | Key | null | undefined,
     name: string,
     phone: string,
 }
@@ -119,7 +120,7 @@ export interface Section {
 export interface RowProps {
     name: string,
     phone: string,
-    uid: string | number[],
+    key: string | number[] | Key | null | undefined,
     onSelectContact: (contact: ContactWithKey) => void
 }
 

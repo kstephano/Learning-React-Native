@@ -17,6 +17,7 @@ class ContactListScreen extends React.Component<ContactListScreenProps, ContactL
             contacts: this.props.contacts
         }
         this.getUsers()
+        debugger
     }
  
     componentDidMount() {
@@ -36,7 +37,7 @@ class ContactListScreen extends React.Component<ContactListScreenProps, ContactL
         if (this.props.route.params?.newContact !== prevProps.route.params?.newContact) {
             if (this.props.route.params?.newContact) { 
                 this.addContact( {
-                    uid: uuid.v4(),
+                    key: uuid.v4(),
                     name: this.props.route.params.newContact.name.toLowerCase(),
                     phone: this.props.route.params.newContact.phone,
                 })
@@ -56,7 +57,6 @@ class ContactListScreen extends React.Component<ContactListScreenProps, ContactL
     }
 
     render() {
-        debugger
         return (
             <View style={styles.container}>
                 <ContactsList 
